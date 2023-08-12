@@ -1,0 +1,150 @@
+﻿@model SwapYE.Models.Item
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_LayoutStatic.cshtml";
+}
+
+<section class="container" style="margin-top: 120px; margin-bottom: 40px;">
+    @using (Html.BeginForm("Edit", "Items", new { id = Model.ItemID }, FormMethod.Post, new { enctype = "multipart/form-data", id = "FormItemEdit" }))
+    {
+
+        <div class="row ">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <h3 class="my-3 text-color-blue form-line5">تعديل المنتج</h3>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 ">
+                <div class="form-group">
+                    @Html.Label("الاسم", new { @class = "form-label mb-1" })
+                    @Html.TextBox("ItemName", " ", new { @class = "form-control rounded" })
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                <div class="form-group">
+                    @Html.Label("الوصف", new { @class = "form-label mb-1" })
+                    @Html.TextBox("Description_1", " ", new { @class = "form-control rounded", id = "Description_1" })
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                <div class="form-group">
+                    @Html.Label("نوع", new { @class = "form-label mb-1" })
+                    @Html.DropDownList("TypeId",
+                    new List<SelectListItem> {
+                    new SelectListItem{Value = "33" , Text = "اختر..",Disabled = true },
+                    new SelectListItem { Value = "1" , Text = "كهربائيات" },
+                    new SelectListItem { Value = "2" , Text = "الكترونيات" },
+                    new SelectListItem { Value = "3" , Text = "مركبات" },
+                    new SelectListItem { Value = "4" , Text = "اثاث" },
+                    new SelectListItem { Value = "5" , Text = "العاب اطفال" },
+                    new SelectListItem { Value = "6" , Text = "اكسسوارات" },
+                    new SelectListItem { Value = "7" , Text = "اخرى" },
+                    }, new { @class = "form-select rounded", id = "TypeId" })
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                @Html.Label("المدينة", new { @class = "form-label mb-1" })
+                @Html.DropDownList("CityId",
+                new List<SelectListItem> {
+                new SelectListItem{Value = "0" , Text = "اختر..",Disabled = true },
+                new SelectListItem { Value = "1" , Text = "المكلا" },
+                new SelectListItem { Value = "2" , Text = "عدن" },
+                new SelectListItem { Value = "3" , Text = "حضرموت الوادي" },
+                new SelectListItem { Value = "4" , Text = "الشحر" },
+                new SelectListItem { Value = "5" , Text = "مأرب" },
+                new SelectListItem { Value = "6" , Text = "شبوة" },
+                new SelectListItem { Value = "7" , Text = "صنعاء" },
+                 new SelectListItem { Value = "8" , Text = "اب" },
+                }, new { @class = "form-select rounded", id = "CityId" })
+            </div>
+
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                <div class="form-group">
+                    @Html.Label("السعر", new { @class = "form-label mb-1" })
+                    @Html.TextBox("Price", " ", new { @class = "form-control rounded", id = "Price" })
+                </div>
+            </div>
+
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                <div class="form-group">
+                    @Html.Label("نوع العملية", new { @class = "form-label mb-1" })
+                    @Html.DropDownList("Transaction_type",
+                    new List<SelectListItem> {
+                    new SelectListItem{Value = "0" , Text = "اختر..",Disabled = true },
+                    new SelectListItem { Value = "للبيع" , Text = "للبيع" },
+                    new SelectListItem { Value = "الإستبدال" , Text = "الإستبدال" },
+                    new SelectListItem { Value = "للبيع و الاستبدال" , Text = "للبيع و الاستبدال" },
+                    }, new { @class = "form-select rounded", id = "Transaction_type" })
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row ">
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                <div class="form-group">
+                    @Html.Label("الحالة", new { @class = "form-label mb-1" })
+                    @Html.DropDownList("Item_State",
+                    new List<SelectListItem> {
+                    new SelectListItem{Value = "0" , Text = "اختر..",Disabled = true },
+                    new SelectListItem { Value = "جديد" , Text = "جديد" },
+                    new SelectListItem { Value = "مستعمل" , Text = "مستعمل" },
+                    }, new { @class = "form-select rounded", id = "Item_State" })
+                </div>
+            </div>
+
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                <div class="form-group">
+                    <label for="ProductImg" class="mb-1">الصورة الاساسية</label>
+                    <input type="file" class="form-control rounded rounded" id="ProductImg1" name="ProductImg1">
+                </div>
+            </div>
+        </div>
+        <div class="row ">
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                <div class="form-group">
+                    <label for="ProductImg1" class="mb-1">صور عرض تفاصيل المنتج </label>
+                    <input type="file" class="form-control rounded rounded" id="ProductImg2" name="ProductImg2">
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                <div class="form-group">
+                    <label for="ProductImg3" class="mb-1">صور عرض تفاصيل المنتج </label>
+                    <input type="file" class="form-control rounded rounded" id="ProductImg3" name="ProductImg3">
+                </div>
+            </div>
+        </div>
+
+        <div id="buttons">
+            <button type="submit" name="submit" class="btn btn-outline my-btn w-25">
+                تعديل
+            </button>
+        </div>
+    }
+
+</section>
+
+
+
+<script>
+
+        $(document).ready(function () {
+            $("#FormItemEdit").submit(function (a) {
+
+                // Get the values of the input fields
+                var ItemName = $("#ItemName").val();
+                var Description_1 = $("#Description_1").val();
+                var TypeId = $("#TypeId").val();
+                var CityId = $("#CityId").val();
+                var Price = $("#Price").val();
+                var Transaction_type = $("#Transaction_type").val();
+                var Item_State = $("#Item_State").val();
+
+                // Check if the fields are empty
+                if (ItemName.trim() == "" || Description_1.trim() == "" || TypeId.trim() == "" || CityId.trim() == "" || Price.trim() == "" || Item_State.trim() == "" || Transaction_type.trim() == "") {
+                    a.preventDefault();
+                    alert("الرجاء إدخال جميع الحقول.");
+                }
+
+            });
+        });
+
+    </script>

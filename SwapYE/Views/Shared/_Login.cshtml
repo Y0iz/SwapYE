@@ -1,0 +1,82 @@
+﻿@model SwapYE.Models.User
+<div class="modal fade" id="Login" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body rounded">
+                <div class="tab-content">
+
+                    @using (Html.BeginForm("Login", "User", FormMethod.Post, new { @id = "formlogin" }))
+                    {
+                        <div class="text-center mb-3">
+                            <img src="~/Content/IMG/IMG_6786.PNG" width="20%" height="30%" alt="" srcset="">
+                        </div>
+                        <div class="form-outline mb-4">
+                            @Html.Label("اسم المستخدم", new { @class = "form-label" })
+                            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control rounded", @id = "UserName" })
+                            @Html.ValidationMessageFor(m => m.UserName)
+                        </div>
+                        <div class="form-outline mb-4">
+                            @Html.Label("كلمة المرور", new { @class = "form-label" })
+                            @Html.PasswordFor(m => m.Passwords, new { @class = "form-control rounded", @id = "Passwords" })
+                            @Html.ValidationMessageFor(m => m.Passwords)
+                        </div>
+
+                        <div class="row mb-4 ms-5">
+                            <div class="col-md-6 d-flex ">
+                                <div class="form-check">
+                                    @Html.Label("تذكرني", new { @class = "form-label", @style = "color: #F38C35;" })
+                                    @Html.CheckBox("kk", new { @class = "form-check-input" })
+                                </div>
+                            </div>
+                            <div class="col justify-content-center text-center">
+                                <a style="color: #F38C35;" >نسيت كلمة المرور؟</a>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn py-btn justify-content-center " style="right: 4.5cm; position: relative;">تسجيل الدخول</button>
+                        <div class="text-center my-2">
+                            <p>ليس لديك حساب؟<a style="color: #F38C35;"  data-bs-toggle="modal" data-bs-target="#Sign-up">إنشاء حساب</a></p>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        $("#formlogin").submit(function (e) {
+
+            // Get the values of the input fields
+            var userName = $("#UserName").val();
+            var password = $("#Passwords").val();
+
+            ////// Define the regex pattern for the username and password
+            //var usernameRegex = /^[a-zA-Z0-9_]{3,16}$/;
+            //var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+
+            // Check if the username and password fields are empty
+            if (userName.trim() == "" || password.trim() == "") {
+                e.preventDefault();
+                alert("الرجاء إدخال جميع الحقول.");
+            }
+  
+
+            //// Check if the username and password match the regex pattern
+            //if (!usernameRegex.test(userName)) {
+            //    alert("Please enter a valid username.");
+            //    return false;
+            //}
+            //if (!passwordRegex.test(password)) {
+            //    alert("Please enter a valid password.");
+            //    return false;
+            //}
+
+            // Submit the form if all the validations pass
+           
+        });
+    });
+</script>
+
+

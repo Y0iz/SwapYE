@@ -1,0 +1,154 @@
+﻿@model SwapYE.ViewModels.chat
+@{
+    ViewBag.Title = "Messages";
+    Layout = "~/Views/Shared/_LayoutStatic.cshtml";
+}
+
+<main class="container-fluid  h-100" style="margin-top: 49px; margin-bottom: 250px;">
+    <div class="row justify-content-center h-100">
+        <div class="col-md-4 col-xl-3 col-sm-6 chat mb-5">
+            <div class="card mb-sm-3 mb-md-0 contacts_card h-100">
+                <div class="card-header">
+                </div>
+                <div class="card-body contacts_body shadow-lg">
+                    <ui class="contacts">
+                        @{ string chatwith = ""; }
+                        @{int ChatId = -1;}
+                        @foreach (var chat in Model.chats)
+                        {
+                            if (((int)Session["UserID"] != @chat.SenderId)) { chatwith = $"{chat.User.FirstName} {chat.User.LastName}"; } else { chatwith = $"{chat.User1.FirstName} {chat.User1.LastName}"; }
+                            <li class="active">
+                                <a href="@Url.Action("Messages","Chats",new { chat_id = chat.ChatId, chatwith = chatwith })">
+                                    @{ ChatId = @chat.ChatId;}
+
+                                    <div class="d-flex bd-highlight btn">
+                                        <div class="img_cont">
+                                            <span class="online_icon">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="55" height="55" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                                                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                                                    <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
+                                                </svg>
+                                            </span>
+                                        </div>
+                                        <div class="user_info ">
+                                            @if ((int)Session["UserID"] != @chat.SenderId)
+                                            {
+                                                <span>@chat.User.FirstName @chat.User.LastName  </span>
+                                            }
+                                            else
+                                            {
+                                                <span>@chat.User1.FirstName @chat.User1.LastName </span>
+                                            }
+                                            <p>Online</p>
+                                        </div>
+
+                                    </div>
+                                </a>
+
+                            </li>
+                        }
+
+                    </ui>
+                </div>
+            </div>
+        </div>
+        <div class="card-messages col-sm-6 col-md-8 col-xl-6 chat mb-5">
+            <div class="card card-msg h-100 shadow-lg">
+                <div class="card-header msg_head">
+                    <div class="d-flex bd-highlight ">
+                        <div class="img_cont">
+                            <span class="online_icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="55" height="55" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                                    <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
+                                </svg>
+                            </span>
+                        </div>
+                        <div class="user_info">
+                            <span>@Session["chatwith"]</span>
+                            <p>messages @Session["count"]</p>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="card-body msg_card_body">
+                    @if (Model.msg != null)
+                    {
+                        foreach (var message in Model.msg)
+                        {
+                            if (message.UserId != (int)Session["UserID"])
+                            {
+                                <div class="d-flex justify-content-start mb-4">
+                                    <div class="img_cont_msg">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="37" height="40" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                                            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                                            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
+                                        </svg>
+                                    </div>
+                                    <div class="msg_cotainer">
+                                        @message.Msg
+                                        <span class="msg_time">@message.CreatedTime.Hour:@message.CreatedTime.Minute:@message.CreatedTime.Second  </span>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="d-flex justify-content-end mb-4">
+                                    <div class="msg_cotainer_send">
+                                        @message.Msg
+                                        <span class="msg_time_send">@message.CreatedTime.Hour:@message.CreatedTime.Minute:@message.CreatedTime.Second </span>
+                                    </div>
+                                    <div class="img_cont_msg">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="37" height="40" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                                            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                                            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
+                                        </svg>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    }
+                </div>
+
+                <div class="card-footer">
+                    <form class="col-md-6 w-auto" action="@Url.Action("Create","Chats")" id="msg" method="post">
+                        <div class="d-flex flex-column flex-sm-row ">
+                            <input class="btn py-btn ms-3" type="submit" value="ارسال">
+                            <input type="text" name="Content" id="Content" class="form-control rounded" value="">
+                            <input type="hidden" name="id" value="@Session["UserID"]" />
+                            @if (Session["UserID"] != null && ChatId != -1)
+                            {
+                                <div class="btn-group">
+                                    @Html.ActionLink(" ", "Report_Chat", "Reports", new { id = ChatId }, new { @class = "btn text-danger bi bi-flag-fill" })
+                                </div>
+                            }
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</main>
+<script>
+    $(document).ready(function () {
+        $('#action_menu_btn').click(function () {
+            $('.action_menu').toggle();
+        });
+    });
+    $(document).ready(function () {
+        $("#msg").submit(function (eee) {
+            // Prevent the form from submitting
+           
+            var val = $('#Content').val();
+            if (val == "") {
+                eee.preventDefault()
+                alert("الرجاء ادخال رسالة اولا ");
+            }
+        });
+    });
+
+</script>
+
+
+

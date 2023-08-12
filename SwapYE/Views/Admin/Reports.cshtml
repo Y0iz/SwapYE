@@ -1,0 +1,68 @@
+﻿@using SwapYE.ViewModels
+@model Report
+@{
+
+    ViewBag.Title = "Reports";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+@if (Model.remsg.Count() == 0 && Model.reitem.Count() == 0 && Model.recomment.Count() == 0)
+{<h5 style="margin-top: 133px;margin-bottom: 299px;margin-right: 5rem" ; class="text-color-blue">لا يوجد بلاغات حاليا</h5>}
+<main style="margin-top: 130px;">
+    <div class="row justify-content-center mb-4">
+        @foreach (var re in Model.reitem)
+        {<div class="col-sm-5 ">
+                <div class="card shadow-lg">
+                    <div class="card-body">
+                        <span class="badge text-bg-secondary "> بلاغ عن اعلان</span>
+                        <h5 class="card-title">@re.Item.ItemName</h5>
+                        <p class="card-text">
+                            @re.Description_1
+                        </p>
+                        <div class="text-start w-100">
+                            <a href="@Url.Action("reitem", "Admin",new { Iid=@re.ReportItemId,m=0})" )" class="btn  btn-outline full-btn"> الغاء البلاغ</a>
+                            <a href="@Url.Action("reitem", "Admin",new { Iid=@re.ItemId,m=1})" class="btn  btn-outline py-btn">حذف المنتج</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+        @foreach (var recom in Model.recomment)
+        {
+            <div class="col-sm-5">
+                <div class="card shadow-lg">
+                    <div class="card-body">
+                        <span class="badge text-bg-secondary "> بلاغ عن تعليق</span>
+                        <h5 class="card-title">@recom.Comment.Content</h5>
+                        <p class="card-text">
+                            @recom.Description_1
+                        </p>
+                        <div class="text-start">
+                            <a href="@Url.Action("recom", "Admin",new { c_id=@recom.ReportCommentId,m=0})" )" class="btn  btn-outline full-btn"> الغاء البلاغ</a>
+                            <a href="@Url.Action("recom", "Admin",new { c_id=@recom.CommentId,m=1})" class="btn btn-outline py-btn">حذف التعليق</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        @foreach (var remsg in Model.remsg)
+        {
+            <div class="col-sm-5 ">
+                <div class="card shadow-lg">
+                    <div class="card-body">
+                        <span class="badge text-bg-secondary "> بلاغ عن رسالة</span>
+                        <h5 class="card-title">محادثة بين @remsg.Chat.User.FirstName @remsg.Chat.User.LastName و @remsg.Chat.User1.FirstName @remsg.Chat.User1.LastName</h5>
+                        <p class="card-text">
+                            @remsg.Description_1
+                        </p>
+                        <div class="text-start w-100">
+                            <a href="@Url.Action("remsg", "Admin",new { m_id=@remsg.ReportMsgId,m=0})" class="btn  btn-outline full-btn"> الغاء البلاغ</a>
+                            <a href="@Url.Action("remsg", "Admin",new { m_id = @remsg.ChatId,m=1})" class="btn btn-outline py-btn">حذف الرسالة </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+</main>

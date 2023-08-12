@@ -1,0 +1,162 @@
+﻿ @model IEnumerable<SwapYE.Models.Item>
+@{
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/_LayoutIndex.cshtml";
+}
+
+<!-- ======= main ======= -->
+<section>
+    <section class="mt-5 text-center container ">
+        <div class="row py-lg-5">
+            <div class="col-lg-6 mx-auto">
+                <video class="back-vid" autoplay loop muted plays-inline>
+                    <source src="~/Content/IMG/_import_61fcb3dda1a375.16851772_FPpreview.mp4"
+                            type="video/mp4">
+                </video>
+                <h1 class="fw-light" style="color:rgb(255, 255, 255);">
+                    حياة أكثر بساطة و أكثر سهولة مع
+                    <span style="color: var(--Orange)">SwapYE</span>
+                </h1>
+                <p class="lead mt-3" style="color:white ;">
+                    موقع <span style="color:  var(--Orange) ;">
+                        SwapYE
+                    </span>هو
+                    الاول من نوعه في اليمن حيث يوفر لمستعمليه خدمة المقايضة لتبديل السلع , يمكنك تبديل (
+                    كتب - أجهزة ألكترونية - أجهزة منزلية) و العديد مجاناً
+                </p>
+
+                @if (Session["UserID"] != null)
+                {
+                    <p>
+                        <a href="@Url.Action("Create", "Items")" class="btn mt-5 mb-2"
+                           style="background-color:var(--Orange);color: white;">اضف منتجك</a>
+                    </p>
+                }
+                else
+                {
+                    <p>
+                        <a data-bs-toggle="modal" data-bs-target="#Login" class="btn mt-5 mb-2"
+                           style="background-color:var(--Orange);color: white;">اضف منتجك</a>
+                    </p>
+                }
+
+
+                <label for="state" class="form-label mb-6" style="color:white ;">المنطقة</label>
+                <select class="form-select" id="state" required
+                        style="box-shadow:none; border-color: white;">
+                    <option disabled selected>اختر...</option>
+                    <option>المكلا</option>
+                    <option>عدن</option>
+                    <option>حضرموت الوادي</option>
+                    <option>الشحر</option>
+                    <option>مأرب</option>
+                    <option>شبوة</option>
+                    <option>صنعاء</option>
+                    <option>اب</option>
+                </select>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="album mb-4">
+        <div class="container ">
+            <div class="row row-cols-2 row-cols-sm-2 row-cols-md-3 g-3 mt-5 ">
+                @foreach (var Item in Model)
+                {
+                    <div class="col">
+                        <div class="card rounded shadow-lg card-main">
+                            <img class="rounded" src="@Url.Content(@Item.Image_1)" alt="somthing" width="100%" height="225" />
+
+                            <div class="card-body">
+                                <h3 class="card-text text-color-blue "> @Item.ItemName</h3>
+                                <h5 class="head-coler"> @Item.ItemType.TypeNme</h5>
+                                <p class="card-text">
+                                    @Item.Description_1
+                                </p>
+                                <div class="d-flex mb-3 justify-content-between align-items-center">
+                                    <span class="card-text">
+                                        المدينة :   @Item.City.CityName <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="gray" class="bi bi-geo-alt" viewBox="0 0 16 16">
+                                            <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z" />
+                                            <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                                        </svg>
+                                    </span>
+                                    <span class="card-text"> @Item.Transaction_type </span>
+                                    <span class="card-text"></span>
+                                </div>
+
+
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group">
+                                        @Html.ActionLink(" ", "Details", "Items", new { id = @Item.ItemID }, new { @class = "btn eye-btn bi bi-eye-fill" })
+                                    </div>
+                                    @if (Session["UserID"] != null)
+                                    {
+                                        <div class="btn-group">
+                                            <a id="re_@Item.ItemID" onclick="openForm(@Item.ItemID)" style="border:none">
+
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                                     height="16" fill="red"
+                                                     viewBox="0 0 16 16">
+                                                    <path d="M14.778.085A.5.5 0 0 1 15 .5V8a.5.5 0 0 1-.314.464L14.5 8l.186.464-.003.001-.006.003-.023.009a12.435 12.435 0 0 1-.397.15c-.264.095-.631.223-1.047.35-.816.252-1.879.523-2.71.523-.847 0-1.548-.28-2.158-.525l-.028-.01C7.68 8.71 7.14 8.5 6.5 8.5c-.7 0-1.638.23-2.437.477A19.626 19.626 0 0 0 3 9.342V15.5a.5.5 0 0 1-1 0V.5a.5.5 0 0 1 1 0v.282c.226-.079.496-.17.79-.26C4.606.272 5.67 0 6.5 0c.84 0 1.524.277 2.121.519l.043.018C9.286.788 9.828 1 10.5 1c.7 0 1.638-.23 2.437-.477a19.587 19.587 0 0 0 1.349-.476l.019-.007.004-.002h.001" />
+                                                </svg>
+
+                                            </a>
+                                        </div>
+                                      
+                                            <div class="formss card-footer" id="@Item.ItemID" style="display:none">
+
+                                                <form class="col-md-6 w-auto" action="@Url.Action("create_itemrep","Reports")" method="post">
+                                                    <div class="d-flex flex-column flex-sm-row ">
+
+
+                                                        <input type="hidden" name="userid" value="@Session["UserID"]" />
+                                                        <input type="text" name="text" class="form-control rounded w-100" value="">
+                                                        <input type="hidden" name="itemid" value="@Item.ItemID" />
+                                                        <input class="btn py-btn ms-3" type="submit" value="ابلاغ">
+
+
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        
+
+                                    }
+                                    else
+                                    {
+                                        <a class="text-danger btn" data-bs-toggle="modal" data-bs-target="#Login">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                                 height="16" fill="currentColor"
+                                                 class="bi bi-flag-fill" viewBox="0 0 16 16">
+                                                <path d="M14.778.085A.5.5 0 0 1 15 .5V8a.5.5 0 0 1-.314.464L14.5 8l.186.464-.003.001-.006.003-.023.009a12.435 12.435 0 0 1-.397.15c-.264.095-.631.223-1.047.35-.816.252-1.879.523-2.71.523-.847 0-1.548-.28-2.158-.525l-.028-.01C7.68 8.71 7.14 8.5 6.5 8.5c-.7 0-1.638.23-2.437.477A19.626 19.626 0 0 0 3 9.342V15.5a.5.5 0 0 1-1 0V.5a.5.5 0 0 1 1 0v.282c.226-.079.496-.17.79-.26C4.606.272 5.67 0 6.5 0c.84 0 1.524.277 2.121.519l.043.018C9.286.788 9.828 1 10.5 1c.7 0 1.638-.23 2.437-.477a19.587 19.587 0 0 0 1.349-.476l.019-.007.004-.002h.001" />
+                                            </svg>
+                                        </a>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <script>
+
+                        function openForm(id) {
+                            const btn = document.getElementById('re_' + id);
+
+                            const form = document.getElementById(id);// document.getElementById("form_"+id);
+
+                            if (form.style.display === 'none') {
+                                // 👇️ this SHOWS the form
+                                form.style.display = 'block';
+
+                            } else {
+                                // 👇️ this HIDES the form
+                                form.style.display = 'none';
+
+                            }
+                        }
+                    </script>
+                }
+            </div>
+        </div>
+    </section>
+</section>
+<!-- End main -->

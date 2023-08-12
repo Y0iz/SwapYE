@@ -1,0 +1,55 @@
+﻿@model IEnumerable<SwapYE.Models.Payment>
+@{
+    ViewBag.Title = "Payment";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<section style="margin-top: 130px;">
+    <section class="row justify-content-center mb-4">
+        @if (Model.Count() == 0)
+        {<h5 style="margin-top: 14px; margin-bottom: 299px; margin-right: 5rem " ; class="text-color-blue">لا يوجد طلبات دفع حاليا </h5>}
+        @foreach (var pay in Model)
+        {
+            <div class="card col-md-5 shadow-lg " style="max-width: 540px;">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <a href="@Url.Content(pay.File_1)" class="popup-link"><img src="@Url.Content(pay.File_1)" class="img-fluid rounded-start" style="margin-right:-20px;" alt="Image"></a>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">@pay.Item.ItemName</h5>
+                            <p class="card-text">
+                                @pay.Item.Description_1
+                            </p>
+                            <div class="text-start mt-5">
+                                @{ string id = Convert.ToString(pay.ItemID); }
+                                <a href="@Url.Action("delete", "Admin", new { Iid=@pay.Item.ItemID})" type="button" class="btn full-btn ">
+                                    رفض الطلب
+                                </a>
+                                <a href="@Url.Action("Accept", "Admin",new { Pid = @pay.PaymentId})" )" type="button" class="btn btn-secondary ">
+                                    قبول الطلب
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+           
+
+        }
+    </section>
+</section>
+
+<script>
+    $(document).ready(function () {
+        $('.popup-link').magnificPopup({
+            type: 'image',
+            gallery: {
+                enabled: true
+            }
+        });
+    });
+</script>
+
+   

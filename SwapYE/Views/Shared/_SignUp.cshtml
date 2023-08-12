@@ -1,0 +1,158 @@
+﻿@model SwapYE.Models.User
+<div class="modal fade" id="Sign-up" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body rounded">
+                @using (Html.BeginForm("Register", "User", FormMethod.Post,new {id = "formsignup" }))
+                {
+                    <div class="container">
+                        <div class="text-center mb-2">
+                            <img src="~/Content/IMG/IMG_6786.PNG" width="20%" height="30%" alt="" srcset="">
+                        </div>
+
+                        <div class="row ">
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 my-1">
+                                <div class="form-group">
+                                    @Html.Label("الاسم الاول", new { @class = "form-label mb-1" })
+                                    @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control rounded" ,@id = "FirstName" })
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 my-1">
+                                <div class="form-group">
+                                    @Html.Label("الاسم الاخير", new { @class = "form-label mb-1" })
+                                    @Html.TextBoxFor(m => m.LastName, new { @class = "form-control rounded", @id = "LastName" })
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 my-1">
+                                <div class="form-group">
+                                    @Html.Label("اسم المستخدم", new { @class = "form-label mb-1" })
+
+                                    <div class="input-group ">
+                                        <span class="input-group-text" id="inputGroupPrepend">@@</span>
+                                        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control rounded", @id = "UserName1", @ariadescribedby = "inputGroupPrepend" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 my-1">
+                                <div class="form-group">
+                                    @Html.Label("الايميل", new { @class = "form-label mb-1" })
+                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control rounded", @id = "Email" })
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 my-1">
+                                <div class="form-group">
+                                    @Html.Label("كلمة المرور", new { @class = "form-label mb-1" })
+                                    @Html.PasswordFor(m => m.Passwords, new { @class = "form-control rounded", @id = "Passwords1" })
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 my-1">
+                                <div class="form-group">
+                                    @Html.Label("رقم الجوال", new { @class = "form-label mb-1"})
+                                    @Html.TextBoxFor(m => m.Phone, new { @class = "form-control rounded", @id = "Phone" })
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 my-1">
+                                <div class="form-group">
+                                    @Html.Label("تاريخ الميلاد", new { @class = "form-label mb-1" })
+                                    @Html.TextBoxFor(m => m.Dob, "{0:yyyy-MM-dd}", new { @class = "form-control rounded", @id = "Dob", type = "date" })
+                                </div>
+                            </div>
+
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 my-1">
+                                <div class="form-group">
+                                    @Html.Label("الجنس", new { @class = "form-label mb-1" })
+                                    @Html.DropDownListFor(m => m.Gender,
+                                    new List<SelectListItem> {
+                                    new SelectListItem{Value = "0" , Text = "اختر..",Disabled = true  },
+                                     new SelectListItem { Value = "ذكر" , Text = "ذكر" },
+                                     new SelectListItem { Value = "أنثى" , Text = "أنثى" }
+                                    ,}, new { @class = "form-select rounded", @id = "Gender" })
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 my-1">
+                                @Html.Label("المدينة", new { @class = "form-label mb-1" })
+
+                                @Html.DropDownListFor(m => m.City,
+                                    new List<SelectListItem> {
+                                    new SelectListItem{Value = "0" , Text = "اختر..",Disabled = true },
+                                    new SelectListItem { Value = "المكلا" , Text = "المكلا" },
+                                    new SelectListItem { Value = "عدن" , Text = "عدن" },
+                                    new SelectListItem { Value = "حضرموت الوادي" , Text = "حضرموت الوادي" },
+                                    new SelectListItem { Value = "الشحر" , Text = "الشحر" },
+                                    new SelectListItem { Value = "مأرب" , Text = "مأرب" },
+                                    new SelectListItem { Value = "شبوة" , Text = "شبوة" },
+                                    new SelectListItem { Value = "صنعاء" , Text = "صنعاء" },
+                                     new SelectListItem { Value = "اب" , Text = "اب" },
+                                    }, new { @class = "form-select rounded", @id = "City" })
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 my-1">
+                                <div class="form-group">
+                                    @Html.Label("الشارع", new { @class = "form-label mb-1" })
+                                    @Html.TextBoxFor(m => m.street, new { @class = "form-control rounded", @id = "street" })
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" id="buttons">
+                            <div class="justify-content-center my-4">
+                                <label for="Check">
+                                    لقد قرأت و وافقت على الشروط و الأحكام
+                                </label>
+                                <input class="form-check-input me-2 " type="checkbox" value="" id="Check" checked
+                                       aria-describedby="CheckHelpText" />
+                            </div>
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                <div class="">
+                                    <button type="submit" id="submit" name="submit"
+                                            class="btn py-btn w-100 mt-2 mb-3">
+                                        تسجيل
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    $(document).ready(function () {
+        $("#formsignup").submit(function (ss) {
+
+        // Get the values of the input fields
+            var userName = $("#UserName1").val();
+            var password = $("#Passwords1").val();
+            var firstName = $("#FirstName").val();
+            var lastName = $("#LastName").val();
+            var email = $("#Email").val();
+
+             //// Define the regex pattern for the username and password
+            //var usernameRegex = /^[a-zA-Z0-9_]{3,16}$/;
+            //var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+
+
+
+        // Check if the fields are empty
+            if (userName.trim() == "" || password.trim() == "" || firstName.trim() == "" || lastName.trim() == "" || email.trim() == "") {
+                ss.preventDefault();
+                alert("الرجاء إدخال جميع الحقول.");
+            }
+
+            //// Check if the username and password match the regex pattern
+            //if (!usernameRegex.test(userName)) {
+            //    alert("الرجاء إدخال اسم مستخدم صحيح.");
+            //    return false;
+            //}
+            //if (!passwordRegex.test(password)) {
+            //    alert("الرجاء إدخال كلمة مرور صحيحة.");
+            //    return false;
+            //}
+    });
+});
+
+</script>

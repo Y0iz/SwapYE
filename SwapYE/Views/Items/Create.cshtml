@@ -1,0 +1,210 @@
+﻿@model SwapYE.Models.Item
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_LayoutStatic.cshtml";
+}
+
+
+
+<section>
+    <section class="container" style="margin-top: 120px; margin-bottom: 40px;">
+        @using (Html.BeginForm("Create", "Items", FormMethod.Post, new { enctype = "multipart/form-data",id= "FormItemCreate" }))
+        {
+            <div class="row ">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <h3 class="my-3 text-color-blue form-line5">اضافة منتج</h3>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 ">
+                    <div class="form-group">
+                        @Html.Label("الاسم", new { @class = "form-label mb-1" })
+                        @Html.TextBox("ItemName", " ", new { @class = "form-control rounded" })
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                        @Html.Label("الوصف", new { @class = "form-label mb-1" })
+                        @Html.TextBox("Description_1", " ", new { @class = "form-control rounded", id = "Description_1" })
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                        @Html.Label("نوع", new { @class = "form-label mb-1" })
+                        @Html.DropDownList("TypeId",
+                        new List<SelectListItem> {
+                        new SelectListItem{Value = "33" , Text = "اختر..",Disabled = true },
+                        new SelectListItem { Value = "1" , Text = "كهربائيات" },
+                        new SelectListItem { Value = "2" , Text = "الكترونيات" },
+                        new SelectListItem { Value = "3" , Text = "مركبات" },
+                        new SelectListItem { Value = "4" , Text = "اثاث" },
+                        new SelectListItem { Value = "5" , Text = "العاب اطفال" },
+                        new SelectListItem { Value = "6" , Text = "اكسسوارات" },
+                        new SelectListItem { Value = "7" , Text = "اخرى" },
+                        }, new { @class = "form-select rounded", id = "TypeId" })
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    @Html.Label("المدينة", new { @class = "form-label mb-1" })
+                    @Html.DropDownList("CityId",
+                    new List<SelectListItem> {
+                    new SelectListItem{Value = "0" , Text = "اختر..",Disabled = true },
+                    new SelectListItem { Value = "1" , Text = "المكلا" },
+                    new SelectListItem { Value = "2" , Text = "عدن" },
+                    new SelectListItem { Value = "3" , Text = "حضرموت الوادي" },
+                    new SelectListItem { Value = "4" , Text = "الشحر" },
+                    new SelectListItem { Value = "5" , Text = "مأرب" },
+                    new SelectListItem { Value = "6" , Text = "شبوة" },
+                    new SelectListItem { Value = "7" , Text = "صنعاء" },
+                     new SelectListItem { Value = "8" , Text = "اب" },
+                    }, new { @class = "form-select rounded", id = "CityId" })
+                </div>
+
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                        @Html.Label("السعر", new { @class = "form-label mb-1" })
+                        @Html.TextBox("Price", " ", new { @class = "form-control rounded", id = "Price" })
+                    </div>
+                </div>
+
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                        @Html.Label("نوع العملية", new { @class = "form-label mb-1" })
+                        @Html.DropDownList("Transaction_type",
+                        new List<SelectListItem> {
+                        new SelectListItem{Value = "0" , Text = "اختر..",Disabled = true },
+                        new SelectListItem { Value = "للبيع" , Text = "للبيع" },
+                        new SelectListItem { Value = "الإستبدال" , Text = "الإستبدال" },
+                        new SelectListItem { Value = "للبيع و الاستبدال" , Text = "للبيع و الاستبدال" },
+                        }, new { @class = "form-select rounded", id = "Transaction_type" })
+                    </div>
+                </div>
+            </div>
+            <div class="row ">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                        @Html.Label("الحالة", new { @class = "form-label mb-1" })
+                        @Html.DropDownList("Item_State",
+                        new List<SelectListItem> {
+                        new SelectListItem{Value = "0" , Text = "اختر..",Disabled = true },
+                        new SelectListItem { Value = "جديد" , Text = "جديد" },
+                        new SelectListItem { Value = "مستعمل" , Text = "مستعمل" },
+                        }, new { @class = "form-select rounded", id = "Item_State" })
+                    </div>
+                </div>
+
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                        <label for="ProductImg" class="mb-1">الصورة الاساسية</label>
+                        <input type="file" class="form-control rounded" id="ProductImg1" name="ProductImg1" required>
+                    </div>
+                </div>
+            </div>
+            <div class="row ">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                        <label for="ProductImg1" class="mb-1">صور عرض تفاصيل المنتج </label>
+                        <input type="file" class="form-control rounded" id="ProductImg2" name="ProductImg2" required>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                        <label for="ProductImg3" class="mb-1">صور عرض تفاصيل المنتج </label>
+                        <input type="file" class="form-control rounded" id="ProductImg3" name="ProductImg3" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <h3 class="my-4 text-color-blue form-line4">الدفع</h3>
+
+                </div>
+
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                        <label for="Recipt" class="mb-1">ادرج ايصال الدفع هنا</label>
+                        <input type="file" class="form-control rounded " id="Recipt" name="Recipt" required>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <button type="button" id="ShowModel" name="submit" class="btn btn-outline-secondary"
+                            data-bs-toggle="modal" data-bs-target="#modalbox">
+                        سياسة الدفع
+                    </button>
+                </div>
+            </div>
+
+            <div id="buttons">
+                <button type="submit" name="submit" class="btn btn-outline my-btn w-25">
+                    نشر
+                    الإعلان
+                </button>
+            </div>
+
+        }
+    </section>
+
+
+    <section>
+        <div class="modal fade" id="modalbox" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="col-12">
+                            <h5>رسوم نشر الاعلان : 5000</h5>
+                            <h6>حسابات الايداع</h6>
+                            <ul>
+                                <li>العمقي : 00000000</li>
+                                <li>بن دول : 00000000</li>
+                                <li>الكريمي : 00000000</li>
+                            </ul>
+                            <h5>تنبيه سيتم التحقق من الايصال من قبل الادارة</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</section>
+
+
+<script>
+
+    $(document).ready(function () {
+        $("#FormItemCreate").submit(function (r) {
+        // Prevent the form from submitting
+        
+
+            // Get the values of the input fields
+            var ItemName = $("#ItemName").val();
+            var Description_1 = $("#Description_1").val();
+            var TypeId = $("#TypeId").val();
+            var CityId = $("#CityId").val();
+            var Price = $("#Price").val();
+            var Transaction_type = $("#Transaction_type").val();
+            var Item_State = $("#Item_State").val();
+
+             //// Define the regex pattern for the username and password
+            //var usernameRegex = /^[a-zA-Z0-9_]{3,16}$/;
+            //var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+
+
+            // Check if the fields are empty
+            if (ItemName.trim() == "" || Description_1.trim() == "" || TypeId.trim() == "" || CityId.trim() == "" || Price.trim() == "" || Item_State.trim() == "" || Transaction_type.trim() == "") {
+                r.preventDefault();
+                alert("الرجاء إدخال جميع الحقول.");
+            }
+  
+
+            // Check if the username and password match the regex pattern
+            if (!usernameRegex.test(userName)) {
+                alert("الرجاء إدخال اسم مستخدم صحيح.");
+                return false;
+            }
+            if (!passwordRegex.test(password)) {
+                alert("الرجاء إدخال كلمة مرور صحيحة.");
+                return false;
+            }
+    });
+});
+
+</script>

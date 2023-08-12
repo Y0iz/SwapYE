@@ -1,0 +1,187 @@
+﻿
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+
+
+    <!-- Favicons -->
+    <link href="~/Content/IMG/IMG_6786.PNG" rel="icon">
+
+    <link href="~/Content/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/Content/bootstrap-5.2.0-CSS/bootstrap.rtl.min.css">
+    <link rel="stylesheet" href="~/Content/swiper/swiper-bundle.min.css">
+
+    <!-- jQuery library -->
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+
+    <!-- Template Main CSS File -->
+    <link href="~/Content/Site.css" rel="stylesheet">
+    <link href="~/Content/style.css" rel="stylesheet">
+    <link href="~/Content/chat-style.css" rel="stylesheet">
+
+
+
+</head>
+
+<body>
+    <!-- ======= Header ======= -->
+    <header id="header" class="fixed-top p-3 navbar navbar-expand-sm navbar-expand-md navbar-toggleable-sm" style="background-color: var(--blue)">
+
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start ">
+            <div class="navbar-brand">
+                <img src="~/Content/IMG/IMG_6786.PNG" width="55" height="70"></img>
+                <span class="fs-4" style="color:white;">SwapYE</span>
+            </div>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar"
+                    aria-controls="#navbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <nav id="navbar" class="sear-nav navbar collapse navbar-collapse  d-sm-inline-flex justify-content-between">
+                <ul col-sm-12>
+                    <li><a class="nav-link scrollto  ms-4  @(ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "active" : "")" href="@Url.Action("Index", "Home")">الرئيسية</a></li>
+                    @if (@Session["UserID"] != null)
+                    {
+                        <li><a class="nav-link scrollto  ms-4  @(ViewContext.RouteData.Values["Action"].ToString() == "Profile" ? "active" : "")" href="@Url.Action("Profile", "User")">الحساب</a></li>
+                        <li><a class="nav-link scrollto ms-4  @(ViewContext.RouteData.Values["Action"].ToString() == "Messages" ? "active" : "")" href=@Url.Action("Messages","Chats")>المحادثات</a></li>
+                    }
+                    <li><a class="nav-link scrollto  ms-4  @(ViewContext.RouteData.Values["Action"].ToString() == "AboutUs" ? "active" : "")" href="@Url.Action("AboutUs", "Home")">من نحن؟</a></li>
+
+                </ul>
+
+                <form class="d-flex searc-nav" method="get" action="@Url.Action("Search", "Home")">
+                    <input class="form-control rounded" name="search" placeholder="Search any category..">
+                </form>
+
+                @if (@Session["UserID"] != null)
+                {
+                    <div class="text-end d-flex  d-none ">
+                        <button type="button" class="btn btn-dark  ms-2" data-bs-toggle="modal" data-bs-target="#Login">تسجيل الدخول</button>
+                        <button type="button" class="btn full-btn  ms-2 " data-bs-toggle="modal" data-bs-target="#Sign-up">انشاء حساب</button>
+                    </div>
+                    <div class="text-end d-flex">
+                        <a href="@Url.Action("LogOut", "User")" type="button" class="btn ms-2" style="background-color:var(--Orange);color: white;">تسجيل الخروج</a>
+                    </div>
+                }
+                else
+                {
+                    <div class="text-end d-flex">
+                        <button type="button" class="btn btn-dark  ms-2 " data-bs-toggle="modal" data-bs-target="#Login">تسجيل الدخول</button>
+                        <button type="button" class="btn full-btn  ms-2" data-bs-toggle="modal" data-bs-target="#Sign-up">انشاء حساب</button>
+                    </div>
+                }
+            </nav><!-- .navbar -->
+        </div>
+    </header>
+
+
+    <main>
+        @RenderBody()
+    </main>
+    @Html.Partial("_Login", new SwapYE.Models.User())
+    @Html.Partial("_SignUp",new SwapYE.Models.User())
+    @Html.Partial("_Report")
+    <!-- ======= Footer ======= -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="footer-col">
+                    <h4>الصفحات</h4>
+                    <ul>
+                        <li><a class="@(ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "active" : "")" href="@Url.Action("Index", "Home")">الرئيسية</a></li>
+                        @if (@Session["UserID"] != null)
+                        {
+                            <li><a class="@(ViewContext.RouteData.Values["Action"].ToString() == "Profile" ? "active" : "")" href="@Url.Action("Profile", "User")">الحساب</a></li>
+                            <li><a class="@(ViewContext.RouteData.Values["Action"].ToString() == "Messages" ? "active" : "")" href=@Url.Action("Messages","Chats")>المحادثات</a></li>
+                        }
+                        <li><a class="@(ViewContext.RouteData.Values["Action"].ToString() == "AboutUs" ? "active" : "")" href="@Url.Action("AboutUs", "Home")">من نحن؟</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>الفئات</h4>
+                    <ul>
+                        <li><a href="#">كهربائيات</a></li>
+                        <li><a href="#">الكترونيات</a></li>
+                        <li><a href="#">مركبات</a></li>
+                        <li><a href="#">اثاث</a></li>
+                        <li><a href="#">العاب الاطفال</a></li>
+                        <li><a href="#">اكسسوارات</a></li>
+                        <li><a href="#">اخرى</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>SwapYE</h4>
+                    <a href="@Url.Action("Index", "Home")"><img src="~/Content/IMG/IMG_6786.PNG" width="150" height="180"></img></a>
+                </div>
+                <div class="footer-col">
+                    <h4>تواصل معنا</h4>
+                    <form class="form-mf">
+                        <div class="row">
+
+                            <div class="col-md-12 mb-3">
+                                <form class="d-flex ms-3 searc-nav " role="search">
+                                    <input class="form-control  rounded" type="email" placeholder="email"
+                                           aria-label="email">
+                                    <br>
+                                    <textarea id="textMessage" class="form-control input-mf" placeholder="Comment *"
+                                              name="message" cols="20" rows="1" required></textarea>
+                                </form>
+                                <br>
+                                <div class="text-end ">
+                                    <button href="milto:Example" type="button" class="btn full-btn" style="margin-right: 3.9cm;">
+                                        ارسال
+                                        الرسالة
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <hr style="color:white;">
+                <center>
+                    <div class="copyright-box" style="color:white;">
+                        <p class="copyright">
+                            &copy; Copyright <strong>Devs. Team</strong>. All Rights
+                            Reserved
+                        </p>
+                        <div class="credits">
+                            Group Progict</a>
+                        </div>
+                    </div>
+                </center>
+            </div>
+        </div>
+    </footer>
+
+
+    <div id="preloader"></div>
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center">
+        <i class="bi bi-arrow-up-short"></i>
+    </a>
+
+    <!-- Vendor JS Files -->
+    <script src="~/Scripts/purecounter/purecounter_vanilla.js"></script>
+    <script src="~/Scripts/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Scripts/glightbox/js/glightbox.min.js"></script>
+    <script src="~/Scripts/swiper/swiper-bundle.min.js"></script>
+    <script src="~/Scripts/typed.js/typed.min.js"></script>
+    <script src="~/Scripts/php-email-form/validate.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/main.js"></script>
+    <script src="~/Scripts/bootstrap-5.2.0-JS/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
